@@ -1,4 +1,4 @@
-package com.adarsh.excelreader;
+package com.adarsh.excel;
 
 import lombok.extern.slf4j.Slf4j;
 
