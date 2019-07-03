@@ -28,7 +28,7 @@ import java.util.Map;
 public class Workbook {
   public static void main(String[] args) throws Exception {
     if( args.length != 5 ) {
-      System.err.println("usage: ...Workbook <file-absolute-path> <upc-cell-num> <dept-name> <file_name>");
+      System.err.println("usage: ...Workbook <file-absolute-path> <sheet-name> <upc-cell-num> <dept-name> <file-name>");
       System.exit(-1);
     }
     String path = args[0];
