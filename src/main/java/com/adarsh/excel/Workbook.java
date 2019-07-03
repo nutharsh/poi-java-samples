@@ -1,6 +1,5 @@
 package com.adarsh.excel;
 
-import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFClientAnchor;
 import org.apache.poi.hssf.usermodel.HSSFPicture;
 import org.apache.poi.hssf.usermodel.HSSFShape;
@@ -24,7 +23,6 @@ import java.util.Map;
 /**
  * @author Adarsh Thimmappa
  */
-@Slf4j
 public class Workbook {
   public static void main(String[] args) throws Exception {
     if( args.length != 5 ) {
@@ -62,7 +60,7 @@ public class Workbook {
         XSSFPicture inpPic = (XSSFPicture) xssfShape;
         XSSFClientAnchor anchor = inpPic.getClientAnchor();
         final String mimeType = inpPic.getPictureData().getMimeType();
-        String name = maps.get(anchor.getRow1()) + "." + mimeType.split("/")[1];
+        String name = maps.get(anchor.getRow1()) + "-" + (anchor.getRow1() + 1) + "." + mimeType.split("/")[1];
         File file = new File(parent, name);
         final FileOutputStream fileOutputStream = new FileOutputStream(file);
         fileOutputStream.write(inpPic.getPictureData().getData());
@@ -74,7 +72,7 @@ public class Workbook {
         final Iterator<XSSFShape> iterator = xssfShapeGroup.iterator();
         int x = 0;
         while ( iterator.hasNext() ) {
-          String name = maps.get(anchor.getRow1()) + "-" + x;
+          String name = maps.get(anchor.getRow1()) + "-" + (anchor.getRow1() + 1) + "-" + x;
           XSSFShape shape = iterator.next();
           XSSFPicture pic = (XSSFPicture) shape;
           final String mimeType = pic.getPictureData().getMimeType();
@@ -87,7 +85,7 @@ public class Workbook {
           x++;
         }
       } else {
-        log.info("***unable to recognise {}***", xssfShape.getClass().getName());
+        System.out.println("***unable to recognise*** |" + xssfShape.getClass().getName());
       }
     }
   }
@@ -111,7 +109,7 @@ public class Workbook {
         if( maps.get(anchor.getRow1()) == null ) {
           continue;
         }
-        String name = maps.get(anchor.getRow1()) + "-" + anchor.getRow1() + "." + mimeType.split("/")[1];
+        String name = maps.get(anchor.getRow1()) + "-" + (anchor.getRow1() + 1) + "." + mimeType.split("/")[1];
         File file = new File(parent, name);
         final FileOutputStream fileOutputStream = new FileOutputStream(file);
         fileOutputStream.write(inpPic.getPictureData().getData());
@@ -120,14 +118,13 @@ public class Workbook {
       } else if( hssfShape instanceof HSSFShapeGroup ) {
         HSSFShapeGroup hssfShapeGroup = (HSSFShapeGroup) hssfShape;
         final HSSFClientAnchor anchor = (HSSFClientAnchor) hssfShapeGroup.getAnchor();
-        final String arg = anchor.getRow1() + "-" + anchor.getCol1();
         final Iterator<HSSFShape> iterator = hssfShapeGroup.iterator();
         int x = 0;
         while ( iterator.hasNext() ) {
           if( maps.get(anchor.getRow1()) == null ) {
             continue;
           }
-          String name = maps.get(anchor.getRow1()) + "-" + anchor.getRow1() + "-" + x;
+          String name = maps.get(anchor.getRow1()) + "-" + (anchor.getRow1() + 1) + "-" + x;
           HSSFShape shape = iterator.next();
           HSSFPicture pic = (HSSFPicture) shape;
           final String mimeType = pic.getPictureData().getMimeType();

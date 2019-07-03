@@ -1,6 +1,5 @@
 package com.adarsh.excel;
 
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
@@ -13,7 +12,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-@Slf4j
 public class WorkbookRowReader {
   public static Map<Integer, String> getMap(String path, String sheetName, int upcCellNum) throws Exception {
     Map<Integer, String> maps = new HashMap<>();
@@ -45,7 +43,7 @@ public class WorkbookRowReader {
           System.out.println(org + " != " + stringCellValue);
         }
       }
-      log.info("row={}", row.getRowNum());
+      System.out.println("row=" + row.getRowNum());
     }
     return maps;
   }
